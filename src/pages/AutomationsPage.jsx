@@ -5,13 +5,19 @@ import "react-js-cron/dist/styles.css";
 
 export default function AutomationsPage() {
 	const [trigger, setTrigger] = useState("");
+
+	const [cron, setCron] = useState("");
+	const [receiveType, setReceiveType] = useState("");
+
 	const [conditionField, setConditionField] = useState("");
 	const [conditionType, setConditionType] = useState("");
 	const [conditionValue, setConditionValue] = useState("");
 
-	const [action, setAction] = useState("");
-	const [cron, setCron] = useState("");
-	const [receiveType, setReceiveType] = useState("any");
+	const [payType, setPayType] = useState("");
+	const [payValue, setPayValue] = useState("");
+
+	const [payAccountType, setPayAccountType] = useState("");
+	const [payAccountValue, setPayAccountValue] = useState("");
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -23,7 +29,7 @@ export default function AutomationsPage() {
 		<div className="flex items-center justify-center min-h-screen w-full">
 			<form onSubmit={handleSubmit} className="w-full max-w-xl">
 				<div className="m-4">
-					<label className="block mb2">Trigger</label>
+					<label className="block mb2">Start</label>
 					<select
 						className="block w-full p-3 rounded border border-gray-300"
 						value={trigger}
@@ -61,7 +67,7 @@ export default function AutomationsPage() {
 				</div>
 
 				<div className="m-4">
-					<label className="block mb2">Condition</label>
+					<label className="block mb2">Check if</label>
 					<div className="flex flex-row">
 						<select
 							className="block w-1/3 p-3 rounded border border-gray-300 mx-1"
@@ -111,13 +117,60 @@ export default function AutomationsPage() {
 					</div>
 				</div>
 
-				<TextInput
-					label="Action"
-					state={action}
-					setState={setAction}
-					id="action"
-					name="action"
-				/>
+				<div className="m-4">
+					<label className="block mb2">Pay</label>
+					<div className="flex flex-row">
+						<select
+							className="block w-1/2 p-3 rounded border border-gray-300 mx-1"
+							value={payType}
+							onChange={(e) => bind(e, setPayType)}
+						>
+							<option value="" disabled selected>
+								select...
+							</option>
+							<option value="amount">Specified Amount</option>
+							<option value="percentage of balance">
+								Percentage of Balance
+							</option>
+							{trigger == "receive" && (
+								<option value="percentage of received amount">
+									Percentage of received amount
+								</option>
+							)}
+						</select>
+
+						<input
+							value={payValue}
+							onChange={(e) => bind(e, setPayValue)}
+							className="block w-1/2 p-3 rounded border border-gray-300 mx-1"
+							placeholder="value"
+						/>
+					</div>
+				</div>
+
+				<div className="m-4">
+					<label className="block mb2">To</label>{" "}
+					<div className="flex flex-row">
+						<select
+							className="block w-1/2 p-3 rounded border border-gray-300 mx-1"
+							value={payAccountType}
+							onChange={(e) => bind(e, setPayAccountType)}
+						>
+							<option value="" disabled selected>
+								select...
+							</option>
+							<option value="ecedi">eCedi Wallet</option>
+							<option value="bank">Bank Account</option>
+						</select>
+						<input
+							value={payAccountValue}
+							onChange={(e) => bind(e, setPayAccountValue)}
+							className="block w-1/2 p-3 rounded border border-gray-300 mx-1"
+							placeholder="value"
+						/>{" "}
+					</div>
+				</div>
+
 				<div className="m-4 text-right">
 					<button
 						type="submit"
