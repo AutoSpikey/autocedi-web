@@ -1,13 +1,15 @@
 import { useState } from "react";
-import TextInput from "../components/TextInput";
 import Cron from "react-js-cron";
 import "react-js-cron/dist/styles.css";
+import { postAutomation } from "../lib/client";
+import { constructPayload } from "../lib/automation";
 
 export default function AutomationsPage() {
 	const [trigger, setTrigger] = useState("");
 
 	const [cron, setCron] = useState("");
 	const [receiveType, setReceiveType] = useState("");
+	const [receiveValue, setReceiveValue] = useState("");
 
 	const [conditionField, setConditionField] = useState("");
 	const [conditionType, setConditionType] = useState("");
@@ -17,16 +19,36 @@ export default function AutomationsPage() {
 	const [payValue, setPayValue] = useState("");
 
 	const [payAccountType, setPayAccountType] = useState("");
-	const [payAccountValue, setPayAccountValue] = useState("");
+	const [payAccountInfo, setPayAccountInfo] = useState("");
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
+		const payload = constructPayload(
+			trigger,
+			cron,
+			receiveType,
+			receiveValue,
+			conditionField,
+			conditionType,
+			conditionValue,
+			payType,
+			payValue,
+			payAccountType,
+			payAccountInfo
+		);
+
+		postAutomation(payload).then((res) => {
+			console.log(res);
+		});
 	};
 
 	const bind = (e, s) => s(e.target.value);
 
 	return (
-		<div className="flex items-center justify-center min-h-screen w-full">
+		<div className="flex flex-col items-center justify-center min-h-screen w-full">
+			<h1 className="text-3xl m-8">Create Automation</h1>
+
 			<form onSubmit={handleSubmit} className="w-full max-w-xl">
 				<div className="m-4">
 					<label className="block mb2">Start</label>
@@ -35,7 +57,7 @@ export default function AutomationsPage() {
 						value={trigger}
 						onChange={(e) => bind(e, setTrigger)}
 					>
-						<option value="" disabled selected>
+						<option value="" disabled>
 							Choose a trigger
 						</option>
 						<option value="receive">When I Receive Money</option>
@@ -60,6 +82,8 @@ export default function AutomationsPage() {
 							</select>
 							<input
 								disabled={receiveType === "any"}
+								value={receiveValue}
+								onChange={(e) => bind(e, setReceiveValue)}
 								className="block w-1/2 p-3 rounded border border-gray-300 mx-1"
 							/>
 						</div>
@@ -74,7 +98,7 @@ export default function AutomationsPage() {
 							value={conditionField}
 							onChange={(e) => bind(e, setConditionField)}
 						>
-							<option value="" disabled selected>
+							<option value="" disabled>
 								Type
 							</option>
 							<option value="balance">Balance</option>
@@ -86,7 +110,7 @@ export default function AutomationsPage() {
 							value={conditionType}
 							onChange={(e) => bind(e, setConditionType)}
 						>
-							<option value="" disabled selected>
+							<option value="" disabled>
 								Compare
 							</option>
 							{["balance", "amount"].includes(conditionField) && (
@@ -104,7 +128,10 @@ export default function AutomationsPage() {
 							{["balance", "amount"].includes(conditionField) && (
 								<option value="lte">less than or equal to</option>
 							)}
-							{["reference"].includes(conditionField) && (
+
+							{ // FIXME: when select switches to this, onChange is no ttriggered, 
+								// so conditionField is not set to this.
+							["reference"].includes(conditionField) && (
 								<option value="has">contains</option>
 							)}
 						</select>
@@ -125,7 +152,7 @@ export default function AutomationsPage() {
 							value={payType}
 							onChange={(e) => bind(e, setPayType)}
 						>
-							<option value="" disabled selected>
+							<option value="" disabled>
 								select...
 							</option>
 							<option value="amount">Specified Amount</option>
@@ -156,15 +183,15 @@ export default function AutomationsPage() {
 							value={payAccountType}
 							onChange={(e) => bind(e, setPayAccountType)}
 						>
-							<option value="" disabled selected>
+							<option value="" disabled>
 								select...
 							</option>
 							<option value="ecedi">eCedi Wallet</option>
 							<option value="bank">Bank Account</option>
 						</select>
 						<input
-							value={payAccountValue}
-							onChange={(e) => bind(e, setPayAccountValue)}
+							value={payAccountInfo}
+							onChange={(e) => bind(e, setPayAccountInfo)}
 							className="block w-1/2 p-3 rounded border border-gray-300 mx-1"
 							placeholder="value"
 						/>{" "}
