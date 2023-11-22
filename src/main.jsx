@@ -5,10 +5,12 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import CreateAutomationPage from './pages/CreateAutomationPage.jsx';
 import Root from './Root.jsx';
 import HomePage from './pages/HomePage.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
+import ListAutomationsPage from './pages/ListAutomationsPage.jsx';
+import ViewAutomationPage from './pages/ViewAutomationPage.jsx';
+import CreateAutomationPage from './pages/CreateAutomationPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -21,8 +23,16 @@ const router = createBrowserRouter([
         element: <HomePage />
       },
       {
+        path: "automations",
+        element: <ListAutomationsPage />
+      },
+      {
         path: "automations/create",
         element: <CreateAutomationPage />
+      },
+      {
+        path: "automations/:automationId",
+        element: <ViewAutomationPage  />
       }
     ]
   },

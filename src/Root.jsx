@@ -6,7 +6,7 @@ export default function Root() {
     <div className='v-full align-middle'>
       <div className="m-2 p-2 border-b ">
         <NavItem to="/" label="Home" />
-        <NavItem to="automations/create" label="Automations" />
+        <NavItem to="automations" label="Automations" />
       </div>
 
         <div id="page" className='h-full w-full'>

@@ -38,3 +38,21 @@ export async function getAutomations(){
         throw error;
     }
 }
+
+export async function getAutomationById(automationId){
+    console.log(SERVER_URL)
+    try {
+        const { data } = await axios
+            .get(`${SERVER_URL}/automations/${automationId}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+        console.log(data)
+
+        return data;
+    } catch (error) {
+        console.error("Error:", error);
+        throw error;
+    }
+}
