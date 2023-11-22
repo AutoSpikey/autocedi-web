@@ -1,15 +1,21 @@
-// import axios from "axios";
 
-// import * as dotenv from "dotenv";
-// dotenv.config()
+import axios from "axios";
 
-// const SERVER_URL = process.env("SERVER_URL");
+export async function postAutomation(payload) {
+    const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
-export async function postAutomation(payload){
-    // const { data } = await axios.post(SERVER_URL, payload)
-    // return data
-    console.log(payload)
-    return {
-        isOk: true,
+    try {
+        const { data } = await axios
+            .post(`${SERVER_URL}/automations`, payload, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+
+        return data;
+    } catch (error) {
+        console.error("Error:", error);
+        throw error;
     }
+
 }

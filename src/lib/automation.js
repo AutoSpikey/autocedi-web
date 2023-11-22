@@ -21,12 +21,12 @@ export function constructPayload(
 
     payload["conditions"] = [
         {
-            conditionField, conditionType, conditionValue,
+            field: conditionField, type: conditionType, value: conditionValue,
         }
     ]
 
     payload["pay"] = [
-       { type: payType, value: payValue, accountType: payAccountType, accountInfo: payAccountInfo}
+        { type: payType, value: payValue, destination: { accountType: payAccountType, accountInfo: payAccountInfo } }
     ]
 
     return payload;

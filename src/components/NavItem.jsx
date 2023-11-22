@@ -9,7 +9,7 @@ export default function NavItem({ to, label }) {
 	);
 }
 
-NavItem.prototypes = {
+NavItem.propTypes = {
 	label: PropTypes.string.isRequired,
 	to: PropTypes.string.isRequired,
 };

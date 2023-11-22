@@ -3,12 +3,14 @@ import Cron from "react-js-cron";
 import "react-js-cron/dist/styles.css";
 import { postAutomation } from "../lib/client";
 import { constructPayload } from "../lib/automation";
+import { Toaster, toast } from "react-hot-toast";
 
-export default function AutomationsPage() {
+
+export default function CreateAutomationPage() {
 	const [trigger, setTrigger] = useState("");
 
 	const [cron, setCron] = useState("");
-	const [receiveType, setReceiveType] = useState("");
+	const [receiveType, setReceiveType] = useState("any");
 	const [receiveValue, setReceiveValue] = useState("");
 
 	const [conditionField, setConditionField] = useState("");
@@ -21,10 +23,10 @@ export default function AutomationsPage() {
 	const [payAccountType, setPayAccountType] = useState("");
 	const [payAccountInfo, setPayAccountInfo] = useState("");
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const payload = constructPayload(
+		let payload = constructPayload(
 			trigger,
 			cron,
 			receiveType,
@@ -38,24 +40,28 @@ export default function AutomationsPage() {
 			payAccountInfo
 		);
 
-		postAutomation(payload).then((res) => {
-			console.log(res);
+		toast.promise(postAutomation(payload), {
+			loading: "Creating...",
+			success: "Automation created successfully",
+			error: "Could not create Automation",
 		});
-	};
 
-	const bind = (e, s) => s(e.target.value);
+	};
 
 	return (
 		<div className="flex flex-col items-center justify-center min-h-screen w-full">
+			<div>
+				<Toaster />
+			</div>
 			<h1 className="text-3xl m-8">Create Automation</h1>
 
-			<form onSubmit={handleSubmit} className="w-full max-w-xl">
+			<form onSubmit={handleSubmit} className="w-full max-w-2xl">
 				<div className="m-4">
 					<label className="block mb2">Start</label>
 					<select
 						className="block w-full p-3 rounded border border-gray-300"
 						value={trigger}
-						onChange={(e) => bind(e, setTrigger)}
+						onChange={(e) => setTrigger(e.target.value)}
 					>
 						<option value="" disabled>
 							Choose a trigger
@@ -73,7 +79,7 @@ export default function AutomationsPage() {
 							<select
 								className="block w-1/2 p-3 rounded border border-gray-300 mx-1"
 								value={receiveType}
-								onChange={(e) => bind(e, setReceiveType)}
+								onChange={(e) => setReceiveType(e.target.value)}
 							>
 								<option value="any">Any payment</option>
 								<option value="amount">Of Amount</option>
@@ -83,7 +89,7 @@ export default function AutomationsPage() {
 							<input
 								disabled={receiveType === "any"}
 								value={receiveValue}
-								onChange={(e) => bind(e, setReceiveValue)}
+								onChange={(e) => setReceiveValue(e.target.value)}
 								className="block w-1/2 p-3 rounded border border-gray-300 mx-1"
 							/>
 						</div>
@@ -96,7 +102,7 @@ export default function AutomationsPage() {
 						<select
 							className="block w-1/3 p-3 rounded border border-gray-300 mx-1"
 							value={conditionField}
-							onChange={(e) => bind(e, setConditionField)}
+							onChange={(e) => setConditionField(e.target.value)}
 						>
 							<option value="" disabled>
 								Type
@@ -108,7 +114,7 @@ export default function AutomationsPage() {
 						<select
 							className="block w-1/3 p-3 rounded border border-gray-300 mx-1"
 							value={conditionType}
-							onChange={(e) => bind(e, setConditionType)}
+							onChange={(e) => setConditionType(e.target.value)}
 						>
 							<option value="" disabled>
 								Compare
@@ -129,14 +135,16 @@ export default function AutomationsPage() {
 								<option value="lte">less than or equal to</option>
 							)}
 
-							{ // FIXME: when select switches to this, onChange is no ttriggered, 
+							{
+								// FIXME: when select switches to this, onChange is not triggered,
 								// so conditionField is not set to this.
-							["reference"].includes(conditionField) && (
-								<option value="has">contains</option>
-							)}
+								["reference"].includes(conditionField) && (
+									<option value="has">contains</option>
+								)
+							}
 						</select>
 						<input
-							onChange={(e) => bind(e, setConditionValue)}
+							onChange={(e) => setConditionValue(e.target.value)}
 							value={conditionValue}
 							placeholder="value"
 							className="block w-1/3 p-3 rounded border border-gray-300 mx-1"
@@ -150,7 +158,7 @@ export default function AutomationsPage() {
 						<select
 							className="block w-1/2 p-3 rounded border border-gray-300 mx-1"
 							value={payType}
-							onChange={(e) => bind(e, setPayType)}
+							onChange={(e) => setPayType(e.target.value)}
 						>
 							<option value="" disabled>
 								select...
@@ -168,7 +176,7 @@ export default function AutomationsPage() {
 
 						<input
 							value={payValue}
-							onChange={(e) => bind(e, setPayValue)}
+							onChange={(e) => setPayValue(e.target.value)}
 							className="block w-1/2 p-3 rounded border border-gray-300 mx-1"
 							placeholder="value"
 						/>
@@ -181,7 +189,7 @@ export default function AutomationsPage() {
 						<select
 							className="block w-1/2 p-3 rounded border border-gray-300 mx-1"
 							value={payAccountType}
-							onChange={(e) => bind(e, setPayAccountType)}
+							onChange={(e) => setPayAccountType(e.target.value)}
 						>
 							<option value="" disabled>
 								select...
@@ -191,7 +199,7 @@ export default function AutomationsPage() {
 						</select>
 						<input
 							value={payAccountInfo}
-							onChange={(e) => bind(e, setPayAccountInfo)}
+							onChange={(e) => setPayAccountInfo(e.target.value)}
 							className="block w-1/2 p-3 rounded border border-gray-300 mx-1"
 							placeholder="value"
 						/>{" "}

@@ -1,12 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './pages/App.jsx'
 import './index.css'
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import AutomationsPage from './pages/AutomationsPage.jsx';
+import CreateAutomationPage from './pages/CreateAutomationPage.jsx';
 import Root from './Root.jsx';
 import HomePage from './pages/HomePage.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
@@ -23,7 +22,7 @@ const router = createBrowserRouter([
       },
       {
         path: "automations/create",
-        element: <AutomationsPage />
+        element: <CreateAutomationPage />
       }
     ]
   },
