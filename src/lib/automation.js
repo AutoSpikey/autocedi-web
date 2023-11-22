@@ -25,7 +25,7 @@ export function constructPayload(
         }
     ]
 
-    payload["pay"] = [
+    payload["actions"] = [
         { type: payType, value: payValue, destination: { accountType: payAccountType, accountInfo: payAccountInfo } }
     ]
 
