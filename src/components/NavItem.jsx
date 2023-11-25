@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 export default function NavItem({ to, label }) {
 	return (
-		<NavLink className="m-2 p-2 hover:bg-slate-100 " to={to}>
+		<NavLink className="m-2 p-2 hover:bg-slate-100 text-xl font-bold" to={to}>
 			{label}
 		</NavLink>
 	);
