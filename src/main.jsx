@@ -11,6 +11,8 @@ import ViewAutomationPage from "./pages/ViewAutomationPage.jsx";
 import CreateAutomationPage from "./pages/CreateAutomationPage.jsx";
 import AuthLayout from "./pages/auth/AuthLayout.jsx";
 import RegisterPage from "./pages/auth/RegisterPage.jsx";
+import PasswordReset from "./pages/auth/PasswordReset.jsx";
+
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,10 @@ const router = createBrowserRouter([
         path: "register",
         element: <RegisterPage />,
       },
+      {
+        path: "passwordreset",
+        element: <PasswordReset />,
+      }
     ],
   },
   {
