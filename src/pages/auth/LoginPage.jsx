@@ -98,7 +98,7 @@ const LoginPage = () => {
             </button>
           )}
           <div className="text-center mt-4">
-            <a href="#" className="text-blue-500 hover:underline">Forgot Password?</a>
+            <a href="/auth/passwordreset" className="text-blue-500 hover:underline">Forgot Password?</a>
         </div>
         </form>
       </div>

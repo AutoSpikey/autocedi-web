@@ -36,7 +36,7 @@ const PasswordReset = () => {
     else {
         const errorData = await response.json();
         setError(errorData.message || "Reset failed");
-        setIsLoading(true);
+        setIsLoading(false);
     }
 
     
