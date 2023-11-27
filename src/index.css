@@ -3,7 +3,44 @@
 @tailwind utilities;
 
 @layer components {
-    .btn-primary {
-      @apply py-2 px-4 bg-white text-black font-semibold rounded-lg hover:scale-110 transition-all hover:bg-gray-400;
-    }
+  .btn-primary {
+    @apply py-2 px-4 bg-white text-black font-semibold rounded-lg hover:scale-110 transition-all hover:bg-gray-400;
   }
+}
+
+@keyframes starFloat {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+
+  50% {
+    transform: translateY(-10px) translateX(5px);
+  }
+
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+}
+
+/* Apply the animation to each star */
+.stars-container .star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background-color: #fff;
+  opacity: 0.8;
+  animation: starFloat 3s linear infinite;
+}
+
+/* Additional styling for the stars container */
+.stars-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  /* Behind other content */
+  pointer-events: none;
+  /* Allows clicks to go through stars */
+}
