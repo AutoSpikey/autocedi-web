@@ -5,11 +5,13 @@ import { postAutomation } from "../lib/client";
 import { constructPayload } from "../lib/automation";
 import { Toaster, toast } from "react-hot-toast";
 
-
 export default function CreateAutomationPage() {
+	const [label, setLabel] = useState("");
+
 	const [trigger, setTrigger] = useState("");
 
 	const [cron, setCron] = useState("");
+
 	const [receiveType, setReceiveType] = useState("any");
 	const [receiveValue, setReceiveValue] = useState("");
 
@@ -45,7 +47,6 @@ export default function CreateAutomationPage() {
 			success: "Automation created successfully",
 			error: "Could not create Automation",
 		});
-
 	};
 
 	return (
@@ -56,6 +57,16 @@ export default function CreateAutomationPage() {
 			<h1 className="text-3xl m-8">Create Automation</h1>
 
 			<form onSubmit={handleSubmit} className="w-full max-w-2xl">
+				<div className="m-4">
+					<label className="block mb2">Label</label>
+					<input
+						value={label}
+						onChange={(e) => setLabel(e.target.value)}
+						className="block w-full p-3 rounded border border-gray-300 mx-1"
+						placeholder="Enter a label"
+					/>
+				</div>
+
 				<div className="m-4">
 					<label className="block mb2">Start</label>
 					<select
@@ -135,13 +146,9 @@ export default function CreateAutomationPage() {
 								<option value="lte">less than or equal to</option>
 							)}
 
-							{
-								// FIXME: when select switches to this, onChange is not triggered,
-								// so conditionField is not set to this.
-								["reference"].includes(conditionField) && (
-									<option value="has">contains</option>
-								)
-							}
+							{["reference"].includes(conditionField) && (
+								<option value="has">contains</option>
+							)}
 						</select>
 						<input
 							onChange={(e) => setConditionValue(e.target.value)}

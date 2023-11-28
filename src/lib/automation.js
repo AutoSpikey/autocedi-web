@@ -1,4 +1,5 @@
 export function constructPayload(
+    label,
     trigger,
     cron,
     receiveType,
@@ -12,6 +13,8 @@ export function constructPayload(
     payAccountInfo,
 ) {
     const payload = {};
+
+    payload["label"] = label;
 
     payload["trigger"] = {
         type: trigger,
