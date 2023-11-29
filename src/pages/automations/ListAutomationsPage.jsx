@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAutomations } from "../lib/client";
+import { getAutomations } from "../../lib/client";
 import { toast, Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -22,7 +22,7 @@ export default function ListAutomationsPage() {
 	};
 
 	return (
-		<div className="min-h-screen items-center justify-center flex flex-col">
+		<div className="min-h-screen items-center flex flex-col">
 			<Toaster />
 			<h1 className="text-3xl p-4">Automations</h1>
 			<div>
@@ -36,14 +36,9 @@ export default function ListAutomationsPage() {
 			<table className="table-auto border min-h-[60%]">
 				<thead>
 					<tr>
-						<th>Trigger Type</th>
-						<th>Condition Field</th>
-						<th>Condition Type</th>
-						<th>Condition Value</th>
-						<th>Pay Type</th>
-						<th>Pay Value</th>
-						<th>Account Type</th>
-						<th>Account Info</th>
+						<th>Label</th>
+						<th>Created At</th>
+						<th>Last Ran</th>
 					</tr>
 				</thead>
 				<tbody>
