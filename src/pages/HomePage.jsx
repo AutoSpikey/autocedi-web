@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
   const texts = [
@@ -51,15 +50,6 @@ export default function HomePage() {
     typeText();
   }, []);
 
-  // const HomePageButton = ({ heading, description }) => {
-  //   return (
-  //     <div className="flex flex-col px-5 py-5 border-2 border-black rounded-full w-64 h-56 justify-self-center justify-center place-items-center text-center hover:bg-cyan-100">
-  //       <div className="font-bold text-lg">{heading}</div>
-  //       <div className="font-normal text-xs text-center">{description}</div>
-  //     </div>
-  //   );
-  // };
-
   return (
     <div>
       <div className="mx-auto w-full max-w-screen-xl h-full  px-2.5 md:px-20 mb-12 mt-28 sm:mt-40 flex flex-col items-center justify-center text-center">
@@ -100,7 +90,14 @@ export default function HomePage() {
           </svg>
         </a>
       </div>
-      <div className="mx-auto max-w-6xl px-6 lg:px-8"><div className="mt-16 flow-root sm:mt-24"></div></div>
+      
+      <div className="mx-auto max-w-6xl px-6 lg:px-8">
+        <div className="mt-16 flow-root sm:mt-24">
+          <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
+            <img className="rounded-md bg-white p-2 sm:p-8 md:p-20 shadow-2xl ring-1 ring-gray-900/10" src="/assets/automation_ss01.png" />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
