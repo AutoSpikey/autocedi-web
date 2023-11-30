@@ -125,12 +125,12 @@ const RegisterPage = () => {
           </div>
 
           {!isLoading ? (
-            <button className="w-full bg-black text-white lg:font-semibold py-1 lg:py-2 rounded-full mt-3 px-5">
+            <button className="w-full bg-black text-white lg:font-semibold py-1 lg:py-2 rounded-lg mt-3 px-5 h-11">
               Continue
             </button>
           ) : (
             <button
-              className="w-full bg-black text-white lg:font-semibold py-1 lg:py-2 rounded-full mt-3"
+              className="w-full bg-black text-white lg:font-semibold py-1 lg:py-2 rounded-lg mt-3 h-11 p-8"
               disabled
             >
               Hold on we&apos;re setting up your account...
