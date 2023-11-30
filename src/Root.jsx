@@ -3,7 +3,7 @@ import NavItem from './components/NavItem'
 
 export default function Root() {
   return (
-    <div className='v-full align-middle'>
+    <div className='v-full align-middle '>
 
       <div className="m-2 py-4 px-2">
         <NavItem to="/" label="Home" />

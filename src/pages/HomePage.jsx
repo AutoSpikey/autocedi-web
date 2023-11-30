@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
-  const navigate = useNavigate();
   const texts = [
-    "The ultimate payment automation solution, saving time and reducing manual workload.",
-    "Empowering you to create custom automations for efficiency and accuracy.",
-    "Streamline payments, simplify transactions, and unlock productivity for your business.",
+    "Pay your tithes as soon as your salary hits.",
+    "Never forget to send money to your loved ones.",
+    "Pay your rent without having to think about it.",
+    "Never miss a payment on your loans"
   ];
 
   let currentIndex = 0;
@@ -51,85 +51,56 @@ export default function HomePage() {
     typeText();
   }, []);
 
-  const HomePageButton = ({ heading, description }) => {
-    return (
-      <div className="flex flex-col px-5 py-5 border-2 border-black rounded-full w-64 h-56 justify-self-center justify-center place-items-center text-center hover:bg-cyan-100">
-        <div className="font-bold text-lg">{heading}</div>
-        <div className="font-normal text-xs text-center">{description}</div>
-      </div>
-    );
-  };
+  // const HomePageButton = ({ heading, description }) => {
+  //   return (
+  //     <div className="flex flex-col px-5 py-5 border-2 border-black rounded-full w-64 h-56 justify-self-center justify-center place-items-center text-center hover:bg-cyan-100">
+  //       <div className="font-bold text-lg">{heading}</div>
+  //       <div className="font-normal text-xs text-center">{description}</div>
+  //     </div>
+  //   );
+  // };
 
   return (
-    <div className="h-full w-screen">
-      <div className="flex flex-col h-[80vh] items-center place-content-center bg-gradient-to-br from-black to-gray-800 w-full text-white py-24 text-center gap-5">
-        <div className="flex flex-row text-2xl md:text-6xl font-extrabold transition-all font-mono text-center justify-items-center ">
-          WHY AUTOCEDI ?
-        </div>
-
-        <div className="flex flex-row text-xl font-light transition-opacity duration-500 ease-in-out">
-          {displayText ? displayText : <br />}
-        </div>
-
-        <div className="flex flex-row gap-5 h-16">
-          <button className="btn-primary w-48">Learn More</button>
-          <button
-            className="btn-primary w-48 border-2 border-white bg-transparent text-white hover:bg-black"
-            onClick={() => navigate("automations/create")}
-          >
-            Login
-          </button>
-        </div>
-
-        <div className="flex flex-row font-bold text-base font-mono">
-          <p className="text-xl">
-            SOLVING PROBLEMS CONCERNING AUTOMATED PAYMENT IN AFRICA . WITH
-            AFRICA . FOR AFRICA - AND BEYOND
+    <div>
+      <div className="mx-auto w-full max-w-screen-xl h-full  px-2.5 md:px-20 mb-12 mt-28 sm:mt-40 flex flex-col items-center justify-center text-center">
+        <div className="mx-auto mb-4 flex max-w-fit items-center justify-center space-x-2 overflow-hidden rounded-full border border-gray-200 bg-white px-7 py-2 shadow-md backdrop-blur transition-all hover:border-gray-200 hover:bg-white/50">
+          <p className="text-sm font-semibold text-gray-700">
+            AutoCedi is under development
           </p>
         </div>
-      </div>
+        <h1 className="max-w-4xl text-5xl font-bold md:text-6xl lg:text-7xl">
+          Super Flexible{" "}
+          <span className="text-blue-600">Automated Payments</span> with your{" "}
+          <span className="text-yellow-600">eCedi</span>.
+        </h1>
 
-      <div className="bg-slate-200 py-24">
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 content-center place-content-center px-40">
-          <HomePageButton
-            heading={`Rule Your Transactions`}
-            description={`This catchphrase emphasizes the empowerment users gain by having
-              control over their transactions through your automated payment
-              solution.`}
-          />
-
-          <HomePageButton
-            heading={`Swift eCedi Payments`}
-            description={`Highlight the seamless experience your web application provides
-            for users to make transactions using the eCedi digital currency.`}
-          />
-
-          <HomePageButton
-            heading={`Automate with Trust`}
-            description={`This catchphrase communicates trust and confidence in the
-            automation capabilities of your solution, assuring users that
-            their payments are in reliable hands.`}
-          />
-
-          <HomePageButton
-            heading={`Transform Payments, Rule by Rule`}
-            description={`Emphasize the transformative aspect of your solution, showcasing
-            how users can revolutionize their payment processes through the
-            creation of personalized rules.`}
-          />
+        <div className="flex flex-row text-xl font-light transition-opacity duration-500 ease-in-out mt-10 max-w-prose text-zinc-700 sm:text-lg">
+            {displayText ? displayText : <br />}
         </div>
-      </div>
 
-      <div className="flex h-[70vh] place-content-center items-center">
-        <img
-          className="border border-black rounded-lg h-[35vh] sm:h-[40vh] lg:h-[60vh] shadow-2xl"
-          src="assets/automation_ss01.png"
-        />
+        <a
+          className="inline-flex btn-primary m-8 items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-black text-white hover:bg-black-900 h-11 rounded-md px-8 mt-5"
+          href="/automations"
+        >
+          Get started{" "}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="ml-2 h-5 w-5"
+          >
+            <path d="M5 12h14"></path>
+            <path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </a>
       </div>
-
-      <div className="bg-black h-44">
-
-      </div>
+      <div className="mx-auto max-w-6xl px-6 lg:px-8"><div className="mt-16 flow-root sm:mt-24"></div></div>
     </div>
   );
 }
