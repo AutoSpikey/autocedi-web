@@ -34,10 +34,9 @@ export default function ListAutomationsPage() {
 			<Toaster />
 
 			<div className="w-2/3 items-center flex flex-col space-y-10">
-				<h1 className="text-3xl p-4">Automations</h1>
 
 				<div className="flex flex-row p-y-8 justify-between w-full">
-					<div></div>
+					<h1 className="text-3xl p-4">Automations</h1>
 					<button
 						className="w-48 p-3 rounded-md bg-blue-500 text-white font-medium hover:bg-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
 						onClick={handleCreateAutomationClick}
