@@ -59,7 +59,7 @@ export default function ListAutomationsPage() {
 								<tr
 									key={idx}
 									className="border-b-2 cursor-pointer hover:bg-gray-100 m-4"
-									onClick={handleAutomationClick}
+									onClick={ () => handleAutomationClick(automation._id)}
 								>
 									<td className="p-4">{automation.label}</td>
 									<td className="p-4">
