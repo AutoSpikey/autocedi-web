@@ -1,21 +1,18 @@
 import { useState } from "react";
 import Cron from "react-js-cron";
 import "react-js-cron/dist/styles.css";
-import { postAutomation } from "../lib/client";
-import { constructPayload } from "../lib/automation";
+import { postAutomation } from "../../lib/client";
+import { constructPayload } from "../../lib/automation";
 import { Toaster, toast } from "react-hot-toast";
 
-
 export default function CreateAutomationPage() {
-	const [trigger, setTrigger] = useState("");
+	const [label, setLabel] = useState("");
 
 	const [cron, setCron] = useState("");
-	const [receiveType, setReceiveType] = useState("any");
-	const [receiveValue, setReceiveValue] = useState("");
 
-	const [conditionField, setConditionField] = useState("");
-	const [conditionType, setConditionType] = useState("");
-	const [conditionValue, setConditionValue] = useState("");
+	const [triggerField, setTriggerField] = useState("");
+	const [triggerType, setTriggerType] = useState("");
+	const [triggerValue, setTriggerValue] = useState("");
 
 	const [payType, setPayType] = useState("");
 	const [payValue, setPayValue] = useState("");
@@ -27,13 +24,10 @@ export default function CreateAutomationPage() {
 		e.preventDefault();
 
 		let payload = constructPayload(
-			trigger,
-			cron,
-			receiveType,
-			receiveValue,
-			conditionField,
-			conditionType,
-			conditionValue,
+			label,
+			triggerField,
+			triggerType,
+			triggerValue,
 			payType,
 			payValue,
 			payAccountType,
@@ -45,7 +39,6 @@ export default function CreateAutomationPage() {
 			success: "Automation created successfully",
 			error: "Could not create Automation",
 		});
-
 	};
 
 	return (
@@ -57,11 +50,25 @@ export default function CreateAutomationPage() {
 
 			<form onSubmit={handleSubmit} className="w-full max-w-2xl">
 				<div className="m-4">
+					<label className="block mb2">Label</label>
+					<input
+						value={label}
+						onChange={(e) => setLabel(e.target.value)}
+						className="block w-full p-3 rounded border border-gray-300 mx-1"
+						placeholder="Enter a label"
+					/>
+				</div>
+
+				<div className="m-4">
 					<label className="block mb2">Start</label>
 					<select
 						className="block w-full p-3 rounded border border-gray-300"
-						value={trigger}
-						onChange={(e) => setTrigger(e.target.value)}
+						value={triggerType}
+						onChange={(e) => {
+							setTriggerType(e.target.value);
+							if (triggerType === "time") setTriggerField("cron");
+							else if (triggerType === "receive") setTriggerField("amount");
+						}}
 					>
 						<option value="" disabled>
 							Choose a trigger
@@ -72,84 +79,27 @@ export default function CreateAutomationPage() {
 				</div>
 
 				<div className="m-4">
-					{trigger === "time" && <Cron value={cron} setValue={setCron} />}
+					{triggerType === "time" && <Cron value={cron} setValue={setCron} />}
 
-					{trigger === "receive" && (
+					{triggerType === "receive" && (
 						<div className="flex flex-row">
 							<select
 								className="block w-1/2 p-3 rounded border border-gray-300 mx-1"
-								value={receiveType}
-								onChange={(e) => setReceiveType(e.target.value)}
+								value={triggerField}
+								onChange={(e) => setTriggerField(e.target.value)}
 							>
-								<option value="any">Any payment</option>
 								<option value="amount">Of Amount</option>
 								<option value="reference">With Reference</option>
 								<option value="sender">From Sender</option>
 							</select>
 							<input
-								disabled={receiveType === "any"}
-								value={receiveValue}
-								onChange={(e) => setReceiveValue(e.target.value)}
+								placeholder={"leave empty for any " + triggerField}
+								value={triggerValue}
+								onChange={(e) => setTriggerValue(e.target.value)}
 								className="block w-1/2 p-3 rounded border border-gray-300 mx-1"
 							/>
 						</div>
 					)}
-				</div>
-
-				<div className="m-4">
-					<label className="block mb2">Check if</label>
-					<div className="flex flex-row">
-						<select
-							className="block w-1/3 p-3 rounded border border-gray-300 mx-1"
-							value={conditionField}
-							onChange={(e) => setConditionField(e.target.value)}
-						>
-							<option value="" disabled>
-								Type
-							</option>
-							<option value="balance">Balance</option>
-							<option value="amount">Amount</option>
-							<option value="reference">Reference</option>
-						</select>
-						<select
-							className="block w-1/3 p-3 rounded border border-gray-300 mx-1"
-							value={conditionType}
-							onChange={(e) => setConditionType(e.target.value)}
-						>
-							<option value="" disabled>
-								Compare
-							</option>
-							{["balance", "amount"].includes(conditionField) && (
-								<option value="eq">equal to</option>
-							)}
-							{["balance", "amount"].includes(conditionField) && (
-								<option value="gt">greater than</option>
-							)}
-							{["balance", "amount"].includes(conditionField) && (
-								<option value="gte">greater than or equal to</option>
-							)}
-							{["balance", "amount"].includes(conditionField) && (
-								<option value="lt">less than</option>
-							)}
-							{["balance", "amount"].includes(conditionField) && (
-								<option value="lte">less than or equal to</option>
-							)}
-
-							{
-								// FIXME: when select switches to this, onChange is not triggered,
-								// so conditionField is not set to this.
-								["reference"].includes(conditionField) && (
-									<option value="has">contains</option>
-								)
-							}
-						</select>
-						<input
-							onChange={(e) => setConditionValue(e.target.value)}
-							value={conditionValue}
-							placeholder="value"
-							className="block w-1/3 p-3 rounded border border-gray-300 mx-1"
-						/>
-					</div>
 				</div>
 
 				<div className="m-4">
@@ -167,7 +117,7 @@ export default function CreateAutomationPage() {
 							<option value="percentage of balance">
 								Percentage of Balance
 							</option>
-							{trigger == "receive" && (
+							{triggerType == "receive" && (
 								<option value="percentage of received amount">
 									Percentage of received amount
 								</option>
@@ -201,7 +151,7 @@ export default function CreateAutomationPage() {
 							value={payAccountInfo}
 							onChange={(e) => setPayAccountInfo(e.target.value)}
 							className="block w-1/2 p-3 rounded border border-gray-300 mx-1"
-							placeholder="value"
+							placeholder="account number"
 						/>{" "}
 					</div>
 				</div>
