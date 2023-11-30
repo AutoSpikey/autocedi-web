@@ -1,6 +1,12 @@
 import { useState } from "react";
+import * as Client from "../../lib/client";
+import { Toaster, toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [otherNames, setOtherNames] = useState("");
@@ -27,32 +33,28 @@ const RegisterPage = () => {
 
 		console.log(payload);
 
-		const response = await fetch("auth/register", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(payload),
+		const registrationPromise = Client.register(payload);
+		toast.promise(registrationPromise, {
+			loading: "Registering user",
+			success: "Registered successfully",
+			error: "Registration failed",
 		});
 
-		// const data = await response.json()
-
-		if (response.ok) {
-			setFirstName("");
-			setOtherNames("");
-			setLastName("");
-			setPhone("");
-			setEmail("");
-			setPassword("");
+		registrationPromise.then(() => {
 			setError(null);
 			setIsLoading(false);
-		}
-
-		// if register fails
+      navigate("/auth/login")
+		}).catch(() => {
+			setIsLoading(false);
+    });
 	}
 
 	return (
 		<div className="bg-white rounded-2xl shadow-lg text-black w-2/5">
+			<div>
+				<Toaster />
+			</div>
+
 			<div className="px-10 lg:px-20 py-8 lg:py-5">
 				{/* <IoMdArrowRoundBack size={30} onClick={goBack} /> */}
 
@@ -76,6 +78,7 @@ const RegisterPage = () => {
 							</label>
 							<input
 								type="text"
+                name="firstName"
 								value={firstName}
 								onChange={(e) => setFirstName(e.target.value)}
 								className="w-full mb-3 lg:mb-3 mt-2 p-2 lg:p-2 rounded-md border border-gray-200 focus:ring-offset-4 focus:ring-2"
@@ -88,6 +91,7 @@ const RegisterPage = () => {
 							</label>
 							<input
 								type="text"
+                name="otherNames"
 								value={otherNames}
 								onChange={(e) => setOtherNames(e.target.value)}
 								className="w-full mb-3 lg:mb-3 mt-2 p-2 lg:p-2 rounded-md border border-gray-200 focus:ring-offset-4 focus:ring-2"
@@ -100,6 +104,7 @@ const RegisterPage = () => {
 							</label>
 							<input
 								type="text"
+                name="lastName"
 								value={lastName}
 								onChange={(e) => setLastName(e.target.value)}
 								className="w-full mb-3 lg:mb-3 mt-2 p-2 lg:p-2 rounded-md border border-gray-200 focus:ring-offset-4 focus:ring-2"
@@ -112,6 +117,7 @@ const RegisterPage = () => {
 							</label>
 							<input
 								type="tel"
+                name="phone"
 								value={phone}
 								onChange={(e) => setPhone(e.target.value)}
 								className="w-full mb-3 lg:mb-3 mt-2 p-2 lg:p-2 rounded-md border border-gray-200 focus:ring-offset-4 focus:ring-2"
@@ -124,6 +130,7 @@ const RegisterPage = () => {
 							</label>
 							<input
 								type="email"
+                name="email"
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
 								className="w-full mb-3 lg:mb-3 mt-2 p-2 lg:p-2 rounded-md border border-gray-200 focus:ring-offset-4 focus:ring-2"
@@ -136,6 +143,7 @@ const RegisterPage = () => {
 							</label>
 							<input
 								type="password"
+                name="password"
 								value={password}
 								onChange={(e) => setPassword(e.target.value)}
 								className="w-full mb-3 lg:mb-3 mt-2 p-2 lg:p-2 rounded-md border border-gray-200 focus:ring-offset-4 focus:ring-2"
