@@ -1,6 +1,6 @@
 # Autocedi Web App
 
-web app for autocedi
+web app for autocedi.
 
 live: [https://autocedi-web.vercel.app]
 
