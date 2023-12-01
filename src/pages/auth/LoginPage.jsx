@@ -1,4 +1,7 @@
 import { useState } from "react";
+import * as client from "../../lib/client"
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../provider/useAuth";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -7,10 +10,14 @@ const LoginPage = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState();
 
+  const navigate = useNavigate();
+  const { token, setToken } = useAuth();
+
   async function handleLogin(e) {
     e.preventDefault();
 
     setIsLoading(true);
+    setError(null)
 
     // validate the fields
     if ( !email || !password) {
@@ -19,24 +26,20 @@ const LoginPage = () => {
       return;
     }
 
-    const response = await fetch("auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    console.log("token", token);
 
-    // const data = await response.json()
-
-    if (response.ok) {
-      setEmail("");
-      setPassword("");
-      setError(null);
+    try{
+      const response = await client.login(email, password);
+      console.log(response);
+      setToken(response.token);
+      navigate("/dashboard");
+    } catch (error){
       setIsLoading(false);
+      console.log(error?.response?.data.error)
+      setError(error?.response?.data?.error || "Something bad happened");
+
     }
 
-    // if register fails
   }
   // oh wow
 
@@ -84,6 +87,9 @@ const LoginPage = () => {
               />
             </div>
           </div>
+          <div className="text-center mt-4">
+            <a href="/auth/passwordreset" className="text-blue-500 hover:underline">Forgot Password?</a>
+          </div>
 
           {!isLoading ? (
             <button className="w-full bg-black text-white lg:font-semibold py-1 lg:py-2 rounded-lg mt-3 px-5 h-11">
@@ -98,8 +104,8 @@ const LoginPage = () => {
             </button>
           )}
           <div className="text-center mt-4">
-            <a href="/auth/passwordreset" className="text-blue-500 hover:underline">Forgot Password?</a>
-        </div>
+            <p>Don&apos;t have an account yet? <a href="/auth/register" className="text-blue-500 hover:underline">register here</a></p>
+          </div>
         </form>
       </div>
     </div>

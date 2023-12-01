@@ -31,8 +31,6 @@ const RegisterPage = () => {
 
 		const payload = { firstName, lastName, email, password, phone, otherNames };
 
-		console.log(payload);
-
 		const registrationPromise = Client.register(payload);
 		toast.promise(registrationPromise, {
 			loading: "Registering user",

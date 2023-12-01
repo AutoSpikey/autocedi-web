@@ -8,7 +8,7 @@ export default function Navbar() {
 				</a>
 				<div className="hidden items-center space-x-4 sm:flex">
 					<a href="/auth/login" className="px-8">
-						Sign In
+						Log In
 					</a>
 					<a
 						href="/auth/register"

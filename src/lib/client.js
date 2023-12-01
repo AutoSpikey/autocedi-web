@@ -17,6 +17,22 @@ export async function register(payload){
   }
 }
 
+export async function login(email, password){
+  try {
+    const { data } = await axios.post(`${SERVER_URL}/auth/login`, 
+    {email, password}, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
 export async function postAutomation(payload) {
   try {
     const { data } = await axios.post(`${SERVER_URL}/automations`, payload, {
