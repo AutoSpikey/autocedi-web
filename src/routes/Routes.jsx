@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, Navigate } from "react-router-dom";
 import { ProtectedRoute } from "./ProtectedRoute";
 import HomePage from "../pages/HomePage";
 import Root from "../Root";
@@ -29,6 +29,10 @@ const Routes = () => {
 
 	// Define routes accessible only to authenticated users
 	const routesForAuthenticatedOnly = [
+		{
+			path: "/auth/login",
+			element: <Navigate to="/dashboard"/>, 
+		},
 		{
 			path: "/dashboard",
 			element: <ProtectedRoute />, // Wrap the component in ProtectedRoute
