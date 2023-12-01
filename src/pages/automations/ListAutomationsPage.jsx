@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAutomations } from "../../lib/client";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
@@ -31,10 +31,7 @@ export default function ListAutomationsPage() {
 
 	return (
 		<div className="min-h-screen items-center flex flex-col">
-			<Toaster />
-
 			<div className="w-2/3 items-center flex flex-col space-y-10">
-
 				<div className="flex flex-row p-y-8 justify-between w-full">
 					<h1 className="text-3xl p-4">Automations</h1>
 					<button

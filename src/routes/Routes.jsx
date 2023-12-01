@@ -8,6 +8,7 @@ import LoginPage from "../pages/auth/LoginPage";
 import RegisterPage from "../pages/auth/RegisterPage";
 import PasswordReset from "../pages/auth/PasswordReset";
 import useAuth from "../provider/useAuth";
+import Dashboard from "../pages/dashboard/Dashboard";
 
 const Routes = () => {
 	const { token } = useAuth();
@@ -34,7 +35,7 @@ const Routes = () => {
 			children: [
 				{
 					path: "",
-					element: <div>Dashboard Page</div>,
+					element: <Dashboard />,
 				},
 			],
 		},

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as Client from "../../lib/client";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 
@@ -51,10 +51,6 @@ const RegisterPage = () => {
 
 	return (
 		<div className="bg-white rounded-2xl shadow-lg text-black w-2/5">
-			<div>
-				<Toaster />
-			</div>
-
 			<div className="px-10 lg:px-20 py-8 lg:py-5">
 				{/* <IoMdArrowRoundBack size={30} onClick={goBack} /> */}
 

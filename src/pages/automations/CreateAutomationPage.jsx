@@ -3,7 +3,7 @@ import Cron from "react-js-cron";
 import "react-js-cron/dist/styles.css";
 import { postAutomation } from "../../lib/client";
 import { constructPayload } from "../../lib/automation";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 export default function CreateAutomationPage() {
 	const [label, setLabel] = useState("");
@@ -43,9 +43,6 @@ export default function CreateAutomationPage() {
 
 	return (
 		<div className="flex flex-col items-center justify-center min-h-screen w-full">
-			<div>
-				<Toaster />
-			</div>
 			<h1 className="text-3xl m-8">Create Automation</h1>
 
 			<form onSubmit={handleSubmit} className="w-full max-w-2xl">
