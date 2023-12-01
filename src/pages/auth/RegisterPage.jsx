@@ -3,9 +3,8 @@ import * as Client from "../../lib/client";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-
 const RegisterPage = () => {
-  const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
@@ -38,26 +37,32 @@ const RegisterPage = () => {
 			error: "Registration failed",
 		});
 
-		registrationPromise.then(() => {
-			setError(null);
-			setIsLoading(false);
-      navigate("/auth/login")
-		}).catch(() => {
-			setIsLoading(false);
-    });
+		registrationPromise
+			.then(() => {
+				setError(null);
+				setIsLoading(false);
+				navigate("/auth/login");
+			})
+			.catch(() => {
+				setIsLoading(false);
+			});
 	}
 
 	return (
 		<div className="bg-white rounded-2xl shadow-lg text-black">
 			<div className="px-10 lg:px-20 py-8 lg:py-5">
-				{/* <IoMdArrowRoundBack size={30} onClick={goBack} /> */}
 
 				<h1 className="text-lg lg:text-3xl font-bold tracking-wide">
 					Create your account
 				</h1>
 
-				<p className="text-gray-400 text-xs lg:text-sm">
+
+				<p className="text-gray-400 text-xs lg:text-sm my-2">
 					Start automating your payments with AutoCedi
+				</p>
+				<p className="text-xs text-center">
+					Already have an account? {" "}
+					<a href="/auth/login" className="text-blue-500 hover:underline">Log in here</a>
 				</p>
 
 				{error && (
@@ -72,7 +77,7 @@ const RegisterPage = () => {
 							</label>
 							<input
 								type="text"
-                name="firstName"
+								name="firstName"
 								value={firstName}
 								onChange={(e) => setFirstName(e.target.value)}
 								className="w-full mb-3 lg:mb-3 mt-2 p-2 lg:p-2 rounded-md border border-gray-200 focus:ring-offset-4 focus:ring-2"
@@ -85,7 +90,7 @@ const RegisterPage = () => {
 							</label>
 							<input
 								type="text"
-                name="otherNames"
+								name="otherNames"
 								value={otherNames}
 								onChange={(e) => setOtherNames(e.target.value)}
 								className="w-full mb-3 lg:mb-3 mt-2 p-2 lg:p-2 rounded-md border border-gray-200 focus:ring-offset-4 focus:ring-2"
@@ -98,7 +103,7 @@ const RegisterPage = () => {
 							</label>
 							<input
 								type="text"
-                name="lastName"
+								name="lastName"
 								value={lastName}
 								onChange={(e) => setLastName(e.target.value)}
 								className="w-full mb-3 lg:mb-3 mt-2 p-2 lg:p-2 rounded-md border border-gray-200 focus:ring-offset-4 focus:ring-2"
@@ -111,7 +116,7 @@ const RegisterPage = () => {
 							</label>
 							<input
 								type="tel"
-                name="phone"
+								name="phone"
 								value={phone}
 								onChange={(e) => setPhone(e.target.value)}
 								className="w-full mb-3 lg:mb-3 mt-2 p-2 lg:p-2 rounded-md border border-gray-200 focus:ring-offset-4 focus:ring-2"
@@ -124,7 +129,7 @@ const RegisterPage = () => {
 							</label>
 							<input
 								type="email"
-                name="email"
+								name="email"
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
 								className="w-full mb-3 lg:mb-3 mt-2 p-2 lg:p-2 rounded-md border border-gray-200 focus:ring-offset-4 focus:ring-2"
@@ -137,7 +142,7 @@ const RegisterPage = () => {
 							</label>
 							<input
 								type="password"
-                name="password"
+								name="password"
 								value={password}
 								onChange={(e) => setPassword(e.target.value)}
 								className="w-full mb-3 lg:mb-3 mt-2 p-2 lg:p-2 rounded-md border border-gray-200 focus:ring-offset-4 focus:ring-2"
