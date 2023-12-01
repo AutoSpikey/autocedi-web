@@ -12,7 +12,7 @@ import CreateAutomationPage from "./pages/automations/CreateAutomationPage.jsx";
 import AuthLayout from "./pages/auth/AuthLayout.jsx";
 import RegisterPage from "./pages/auth/RegisterPage.jsx";
 import PasswordReset from "./pages/auth/PasswordReset.jsx";
-
+import Home from "./pages/dashboard/Home.jsx";
 
 const router = createBrowserRouter([
   {
@@ -31,7 +31,18 @@ const router = createBrowserRouter([
       {
         path: "passwordreset",
         element: <PasswordReset />,
-      }
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "",
+        element: <Home />,
+      },
     ],
   },
   {
