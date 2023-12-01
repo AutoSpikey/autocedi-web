@@ -48,7 +48,7 @@ const RegisterPage = () => {
 	}
 
 	return (
-		<div className="bg-white rounded-2xl shadow-lg text-black w-2/5">
+		<div className="bg-white rounded-2xl shadow-lg text-black">
 			<div className="px-10 lg:px-20 py-8 lg:py-5">
 				{/* <IoMdArrowRoundBack size={30} onClick={goBack} /> */}
 
