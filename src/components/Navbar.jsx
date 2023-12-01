@@ -1,7 +1,9 @@
 import useAuth from "../provider/useAuth";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
 	const { token, setToken } = useAuth();
+	const navigate = useNavigate();
 
 	return (
 		<nav className="sticky h-14 inset-x-0 top-0 z-30 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">
@@ -12,7 +14,13 @@ export default function Navbar() {
 				</a>
 				<div className="hidden items-center space-x-4 sm:flex">
 					{token ? (
-						<button className="px-8" onClick={() => setToken()}>
+						<button
+							className="px-8"
+							onClick={() => {
+								setToken();
+								navigate();
+							}}
+						>
 							Log Out
 						</button>
 					) : (
