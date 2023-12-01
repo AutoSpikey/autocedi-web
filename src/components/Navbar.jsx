@@ -1,4 +1,10 @@
+import useAuth from "../provider/useAuth";
+import { useNavigate } from "react-router-dom";
+
 export default function Navbar() {
+	const { token, setToken } = useAuth();
+	const navigate = useNavigate();
+
 	return (
 		<nav className="sticky h-14 inset-x-0 top-0 z-30 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">
 			<div className="mx-auto w-full max-w-screen-xl px-2.5 md:px-20 flex h-14 items-center justify-between border-b border-zinc-200">
@@ -7,11 +13,24 @@ export default function Navbar() {
 					<span>autocedi</span>
 				</a>
 				<div className="hidden items-center space-x-4 sm:flex">
-					<a href="/auth/login" className="px-8">
-						Sign In
-					</a>
+					{token ? (
+						<button
+							className="px-8"
+							onClick={() => {
+								setToken();
+								navigate();
+							}}
+						>
+							Log Out
+						</button>
+					) : (
+						<a href="/auth/login" className="px-8">
+							Log In
+						</a>
+					)}
+
 					<a
-						href="/auth/register"
+						href={token ? "/dashboard" : "/auth/register"}
 						className="inline-flex btn-primary items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-black text-white hover:bg-black-900 h-11 rounded-md px-8"
 					>
 						Get started{" "}
