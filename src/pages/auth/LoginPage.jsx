@@ -11,7 +11,7 @@ const LoginPage = () => {
   const [isLoading, setIsLoading] = useState();
 
   const navigate = useNavigate();
-  const { token, setToken } = useAuth();
+  const { setToken } = useAuth();
 
   async function handleLogin(e) {
     e.preventDefault();
@@ -26,18 +26,14 @@ const LoginPage = () => {
       return;
     }
 
-    console.log("token", token);
 
     try{
       const response = await client.login(email, password);
-      console.log(response);
       setToken(response.token);
       navigate("/dashboard");
     } catch (error){
       setIsLoading(false);
-      console.log(error?.response?.data.error)
       setError(error?.response?.data?.error || "Something bad happened");
-
     }
 
   }

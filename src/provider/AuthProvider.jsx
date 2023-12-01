@@ -11,7 +11,7 @@ import AuthContext from "./AuthContext";
 
 const AuthProvider = ({ children }) => {
 	// State to hold the authentication token
-	const [token, setToken_] = useState(localStorage.getItem("token"));
+	const [token, setToken_] = useState(Cookies.get("token"));
 
 	// Function to set the authentication token
 	const setToken = (newToken) => {
