@@ -1,5 +1,4 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { useAuth } from "../provider/authProvider";
 import { ProtectedRoute } from "./ProtectedRoute";
 import HomePage from "../pages/HomePage";
 import Root from "../Root";
@@ -8,6 +7,7 @@ import ErrorPage from "../pages/ErrorPage";
 import LoginPage from "../pages/auth/LoginPage";
 import RegisterPage from "../pages/auth/RegisterPage";
 import PasswordReset from "../pages/auth/PasswordReset";
+import useAuth from "../provider/useAuth";
 
 const Routes = () => {
 	const { token } = useAuth();
