@@ -13,6 +13,8 @@ import RegisterPage from "../pages/auth/RegisterPage";
 import PasswordReset from "../pages/auth/PasswordReset";
 import useAuth from "../provider/useAuth";
 import Dashboard from "../pages/dashboard/Dashboard";
+import CreateAutomationPage from "../pages/automations/CreateAutomationPage";
+import ListAutomationsPage from "../pages/automations/ListAutomationsPage";
 
 const Routes = () => {
 	const { token } = useAuth();
@@ -39,6 +41,14 @@ const Routes = () => {
 					path: "",
 					element: <Dashboard />,
 				},
+				{
+					path: "automations/create",
+					element: <CreateAutomationPage />
+				},
+				{
+					path: "automations",
+					element: <ListAutomationsPage />
+				}
 			],
 		},
 	];

@@ -4,6 +4,7 @@ import "react-js-cron/dist/styles.css";
 import { postAutomation } from "../../lib/client";
 import { constructPayload } from "../../lib/automation";
 import { toast } from "react-hot-toast";
+import cronStrue from "cronstrue";
 
 export default function CreateAutomationPage() {
 	const [label, setLabel] = useState("");
@@ -76,7 +77,16 @@ export default function CreateAutomationPage() {
 				</div>
 
 				<div className="m-4">
-					{triggerType === "time" && <Cron value={cron} setValue={setCron} />}
+					{triggerType === "time" && (
+						<div className="m-8">
+							<Cron value={cron} setValue={setCron} />
+							<p className="text-slate-700 text-sm">
+								{cron
+									? (<>the automation will happen <span className="font-bold">{cronStrue.toString(cron)}</span></>)
+									: ""}
+							</p>
+						</div>
+					)}
 
 					{triggerType === "receive" && (
 						<div className="flex flex-row">
