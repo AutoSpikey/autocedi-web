@@ -27,7 +27,7 @@ export default function ListAutomationsPage() {
 	};
 
 	const handleCreateAutomationClick = () => {
-		navigate("/automations/create");
+		navigate("/dashboard/automations/create");
 	};
 
 	return (

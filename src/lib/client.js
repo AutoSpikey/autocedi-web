@@ -30,6 +30,7 @@ api.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       // Log out the user or perform any other action
+      console.error("auth error" + error.response)
 
       // TODO refresh the token
       

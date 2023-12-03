@@ -1,21 +1,32 @@
-export function constructPayload(
+export function constructPayload({
     label,
     triggerField,
     triggerType,
-    triggerValue,
-    payType,
+    triggerAmount,
+    triggerCron,
+    payField,
     payValue,
-    payAccountType,
-    payAccountInfo,
-) {
+    account
+}) {
+    console.log({
+        label,
+        triggerField,
+        triggerType,
+        triggerAmount,
+        triggerCron,
+        payField,
+        payValue,
+        account
+    })
+
     const payload = {
         label: label,
         trigger: {
-            field: triggerField, type: triggerType, value: triggerValue,
+            type: triggerType, field: triggerField, amount: Number(triggerAmount), cron: triggerCron
         },
         conditions: [],
         actions: [
-            { type: payType, value: payValue, destination: { accountType: payAccountType, accountInfo: payAccountInfo } }
+            { field: payField, value: Number(payValue), destination: account }
         ]
     }
 
