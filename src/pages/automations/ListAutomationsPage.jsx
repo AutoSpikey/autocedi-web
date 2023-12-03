@@ -11,11 +11,12 @@ export default function ListAutomationsPage() {
 	useEffect(() => {
 		getAutomations()
 			.then(setAutomations)
-			.catch((error) => toast.error(error.data.message));
+			.catch((error) => toast.error(error.data?.message));
 	}, []);
 
 	const handleAutomationClick = (automationId) => {
-		navigate("/automations/" + automationId);
+		console.log("automation id", automationId);
+		navigate(automationId);
 	};
 
 	const getHumanDateFromNow = (arg) => {
@@ -55,7 +56,7 @@ export default function ListAutomationsPage() {
 								<tr
 									key={automation._id}
 									className="border-b-2 cursor-pointer hover:bg-gray-100 m-4"
-									onClick={() => handleAutomationClick(automation._id)}
+									onClick={() => {console.log(automation); handleAutomationClick(automation.oid)}}
 								>
 									<td className="p-4">{automation.label}</td>
 									<td className="p-4">

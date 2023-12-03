@@ -15,6 +15,7 @@ import useAuth from "../provider/useAuth";
 import Dashboard from "../pages/dashboard/Dashboard";
 import CreateAutomationPage from "../pages/automations/CreateAutomationPage";
 import ListAutomationsPage from "../pages/automations/ListAutomationsPage";
+import ViewAutomationPage from "../pages/automations/ViewAutomationPage";
 
 const Routes = () => {
 	const { token } = useAuth();
@@ -48,6 +49,10 @@ const Routes = () => {
 				{
 					path: "automations",
 					element: <ListAutomationsPage />
+				},
+				{
+					path: "automations/:id",
+					element: <ViewAutomationPage />
 				}
 			],
 		},
