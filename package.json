@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "axios": "^1.6.2",
+    "cronstrue": "^2.47.0",
     "flowbite": "^2.2.0",
     "flowbite-react": "^0.7.0",
+    "js-cookie": "^3.0.5",
     "moment": "^2.29.4",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",

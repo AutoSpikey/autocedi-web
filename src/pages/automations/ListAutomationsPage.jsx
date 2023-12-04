@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAutomations } from "../../lib/client";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
@@ -11,11 +11,12 @@ export default function ListAutomationsPage() {
 	useEffect(() => {
 		getAutomations()
 			.then(setAutomations)
-			.catch((error) => toast.error(error.data.message));
+			.catch((error) => toast.error(error.data?.message));
 	}, []);
 
 	const handleAutomationClick = (automationId) => {
-		navigate("/automations/" + automationId);
+		console.log("automation id", automationId);
+		navigate(automationId);
 	};
 
 	const getHumanDateFromNow = (arg) => {
@@ -26,15 +27,12 @@ export default function ListAutomationsPage() {
 	};
 
 	const handleCreateAutomationClick = () => {
-		navigate("/automations/create");
+		navigate("/dashboard/automations/create");
 	};
 
 	return (
 		<div className="min-h-screen items-center flex flex-col">
-			<Toaster />
-
 			<div className="w-2/3 items-center flex flex-col space-y-10">
-
 				<div className="flex flex-row p-y-8 justify-between w-full">
 					<h1 className="text-3xl p-4">Automations</h1>
 					<button
@@ -58,7 +56,7 @@ export default function ListAutomationsPage() {
 								<tr
 									key={automation._id}
 									className="border-b-2 cursor-pointer hover:bg-gray-100 m-4"
-									onClick={() => handleAutomationClick(automation._id)}
+									onClick={() => {console.log(automation); handleAutomationClick(automation.oid)}}
 								>
 									<td className="p-4">{automation.label}</td>
 									<td className="p-4">
