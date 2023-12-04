@@ -16,7 +16,6 @@ import Dashboard from "../pages/dashboard/Dashboard";
 import CreateAutomationPage from "../pages/automations/CreateAutomationPage";
 import ListAutomationsPage from "../pages/automations/ListAutomationsPage";
 import ViewAutomationPage from "../pages/automations/ViewAutomationPage";
-import Home from "../pages/dashboard/Home";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -42,17 +41,6 @@ const Routes = () => {
         {
           path: "",
           element: <Dashboard />,
-        },
-        {
-          path: "home",
-          element: <Home />,
-          //   errorElement: <ErrorPage />,
-          //   children: [
-          //     {
-          //       path: "",
-          //       element: <Home />,
-          //     },
-          //   ],
         },
         {
           path: "automations/create",
