@@ -1,19 +1,39 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/logo-labelled-dark.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AutoCedi</title>
-  </head>
-  <style>
-    html,
-    body {
-      height: 100vh;
-    }
-  </style>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/logo-labelled-dark.png" media="(prefers-color-scheme: dark)"/>
+    <link rel="icon" type="image/svg+xml" href="/logo-labelled-light.png" media="(prefers-color-scheme: light)"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>AutoCedi</title>
+	</head>
+	<style>
+		html,
+		body {
+			height: 100vh;
+		}
+	</style>
+	<script>
+    console.log("AutoCedi")
+		// select the favicon 👉
+		const faviconEl = document.querySelector('link[rel="icon"]');
+
+		// watch for changes 🕵️
+		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    console.log()
+		mediaQuery.addEventListener("change", themeChange);
+
+		// listener 👂
+		function themeChange(event) {
+			if (event.matches) {
+				faviconEl.setAttribute("href", "logo-labelled-dark.png");
+			} else {
+				faviconEl.setAttribute("href", "logo-labelled-light.png");
+			}
+		}
+	</script>
+	<body>
+		<div id="root"></div>
+		<script type="module" src="/src/main.jsx"></script>
+	</body>
 </html>
