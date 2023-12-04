@@ -74,6 +74,7 @@ export default function CreateAutomationPage() {
 						value={triggerType}
 						onChange={(e) => {
 							setTriggerType(e.target.value);
+							if(triggerType === "receive") setTriggerField("amount")
 						}}
 					>
 						<option value="" disabled>
