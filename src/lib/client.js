@@ -104,7 +104,7 @@ export async function getAutomationById(automationId) {
 export async function getCurrentUser() {
   try {
     const { data } = await api.get(`${SERVER_URL}/self/me`);
-    // console.log("user", data);
+
     return data;
   } catch (error) {
     console.error("Error:", error);
