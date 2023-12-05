@@ -2,26 +2,28 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Table, Spinner } from "flowbite-react";
 import { getAutomationById } from "../../lib/client";
+import { useNavigate } from "react-router-dom/dist";
 
 export default function ViewAutomationPage() {
-  let { automationId } = useParams();
-  const [automation, setAutomation] = useState(null);
+  let { id } = useParams();
+  const [automation, setAutomation] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
-    getAutomationById(automationId).then((data) => {
+    getAutomationById(id).then((data) => {
       setAutomation(data);
       setIsLoading(false);
     });
-  }, [automationId]);
+  }, [id]);
+
+  const goBack = () => {
+    navigate(-1);
+  };
 
   return (
     <>
-      {/* <div>
-        ViewAutomationPage {automationId} <p>{JSON.stringify(automation)}</p>
-      </div> */}
-
       {isLoading ? (
         <div className="flex justify-center py-20">
           <Spinner color="warning" aria-label="Warning spinner example" />
@@ -31,9 +33,27 @@ export default function ViewAutomationPage() {
           <div className="flex flex-col gap-y-10">
             <div className="px-5 py-5">
               <div className="px-4 sm:px-0">
-                <h3 className="text-base font-bold leading-7 text-gray-900 uppercase">
-                  {automation && automation.label ? automation.label : "N/A"}
-                </h3>
+                <div className="flex flex-row items-center gap-x-5">
+                  <div className="cursor-pointer" onClick={goBack}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M19 12H6M12 5l-7 7 7 7"></path>
+                    </svg>
+                  </div>
+                  <h3 className="text-base font-bold leading-7 text-gray-900 uppercase">
+                    {automation && automation.label ? automation.label : "N/A"}
+                  </h3>
+                </div>
+
                 <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
                   {/* Personal details and application. */}
                 </p>
@@ -69,13 +89,13 @@ export default function ViewAutomationPage() {
                         </div>
 
                         <div className="flex flex-row">
-                          <h1 className="font-semibold pr-2">Value:</h1>
+                          <h1 className="font-semibold pr-2">Amount:</h1>
                           <p>
-                            {automation &&
-                            automation.trigger &&
-                            automation.trigger.value
-                              ? automation.trigger.value
+                            {automation?.trigger?.amount !== undefined
+                              ? automation.trigger.amount
                               : "N/A"}
+
+                            {/* {automation?.trigger?.amount} */}
                           </p>
                         </div>
                       </div>
@@ -136,22 +156,15 @@ export default function ViewAutomationPage() {
 
                               <div className="flex flex-col gap-y-2">
                                 <div className="flex flex-row">
-                                  <h1 className="font-semibold pr-2">
-                                    Account Type:
-                                  </h1>
-                                  <p>{action.destination.accountType}</p>
+                                  <h1 className="font-semibold pr-2">Field:</h1>
+                                  <p>{action.field}</p>
                                 </div>
 
                                 <div className="flex flex-row">
                                   <h1 className="font-semibold pr-2">
-                                    Account Info:
+                                    Destination:
                                   </h1>
-                                  <p>{action.destination.accountInfo}</p>
-                                </div>
-
-                                <div className="flex flex-row">
-                                  <h1 className="font-semibold pr-2">Type:</h1>
-                                  <p>{action.type}</p>
+                                  <p>{action.destination}</p>
                                 </div>
 
                                 <div className="flex flex-row">
@@ -161,7 +174,7 @@ export default function ViewAutomationPage() {
                               </div>
                             </div>
                           ))
-                        : ""}
+                        : "Nothing exists here :("}
                     </dd>
                   </div>
                 </dl>
@@ -191,14 +204,14 @@ export default function ViewAutomationPage() {
                       </th>
                     </tr>
                   </thead>
-                  <Table.Body className="divide-y">
+                  {/* <Table.Body className="divide-y">
                     <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                       <Table.Cell>{'Apple MacBook Pro 17"'}</Table.Cell>
                       <Table.Cell>Sliver</Table.Cell>
                       <Table.Cell>Laptop</Table.Cell>
                       <Table.Cell>$2999</Table.Cell>
                     </Table.Row>
-                  </Table.Body>
+                  </Table.Body> */}
                 </Table>
               </div>
             </div>
