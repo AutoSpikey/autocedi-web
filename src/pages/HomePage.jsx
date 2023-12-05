@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import TypewriterComponent from "typewriter-effect";
 
 export default function HomePage() {
   const texts = [
@@ -7,48 +8,6 @@ export default function HomePage() {
     "Pay your rent without having to think about it.",
     "Never miss a payment on your loans"
   ];
-
-  let currentIndex = 0;
-  let charIndex = 0;
-  let currentText = "";
-  const timeout = 100;
-  const cleaningTimeout = 50;
-  const [displayText, setDisplayText] = useState("");
-
-  const typeText = async () => {
-    let pointedText = texts[currentIndex];
-    currentText = currentText + pointedText.charAt(charIndex);
-    setDisplayText(currentText);
-    charIndex = charIndex + 1;
-
-    if (charIndex >= pointedText.length) {
-      setTimeout(() => clearText(), 2000);
-      return;
-    }
-
-    setTimeout(() => typeText(), timeout);
-  };
-
-  const clearText = async () => {
-    currentText = currentText.slice(0, -1);
-    setDisplayText(currentText);
-
-    if (currentText === "") {
-      if (currentIndex === texts.length - 1) currentIndex = 0;
-      else {
-        currentIndex = currentIndex + 1;
-      }
-      charIndex = 0;
-      setTimeout(() => typeText(), 1000);
-      return;
-    }
-
-    setTimeout(() => clearText(), cleaningTimeout);
-  };
-
-  useEffect(() => {
-    typeText();
-  }, []);
 
 	return (
 		<div className="v-full w-full align-middle min-h-screen">
@@ -66,7 +25,14 @@ export default function HomePage() {
 				</h1>
 
 				<div className="flex flex-row text-xl font-light transition-opacity duration-500 ease-in-out mt-10 max-w-prose text-zinc-700 sm:text-lg">
-					{displayText ? displayText : <br />}
+        <TypewriterComponent
+          options={{
+          strings: texts,
+          autoStart: true,
+          loop: true,
+          deleteSpeed: 5
+        }}
+/>
 				</div>
 
 				<a
