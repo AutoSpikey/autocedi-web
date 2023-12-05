@@ -25,13 +25,13 @@ export default function HomePage() {
 				</h1>
 
 				<div className="flex flex-row text-xl font-light transition-opacity duration-500 ease-in-out mt-10 max-w-prose text-zinc-700 sm:text-lg">
-        <TypewriterComponent
-          options={{
-          strings: texts,
-          autoStart: true,
-          loop: true,
-          deleteSpeed: 5
-        }}
+          <TypewriterComponent
+            options={{
+            strings: texts,
+            autoStart: true,
+            loop: true,
+            deleteSpeed: 5
+          }}
 />
 				</div>
 
