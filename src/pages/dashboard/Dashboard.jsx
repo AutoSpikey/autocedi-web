@@ -10,7 +10,22 @@ function Dashboard() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
+  const currentHour = new Date().getHours();
+
+  let greeting;
+  if (currentHour >= 5 && currentHour < 12) {
+    greeting = "Good morning";
+  } else if (currentHour >= 12 && currentHour < 18) {
+    greeting = "Good afternoon";
+  } else {
+    greeting = "Good evening";
+  }
+
   useEffect(() => {
+    getCurrentUser()
+      .then(setUser)
+      .catch((error) => toast.error(error.data.message));
+
     getWallet()
       .then(setWallet)
       .catch((error) => toast.error(error.data.message));
@@ -21,7 +36,7 @@ function Dashboard() {
   }, []);
 
   const handleAutomationClick = (automationId) => {
-    navigate("/automations/" + automationId);
+    navigate(`/dashboard/automations/${automationId}`);
   };
 
   const getHumanDateFromNow = (arg) => {
@@ -39,7 +54,9 @@ function Dashboard() {
     <div className="min-h-screen flex-col lg:px-48 md:px-20 px-5 lg:py-10 py-5">
       <div className="flex flex-col lg:gap-y-3 gap-y-1">
         <Toaster />
-        <h1 className="font-bold lg:text-3xl text-xl text-black">Dashboard</h1>
+        <h1 className="font-bold lg:text-3xl text-xl text-black">
+          {greeting}, {user?.firstName}
+        </h1>
         <p className="lg:text-base text-xs text-gray-400">
           Welcome to your personal dashboard
         </p>
@@ -54,7 +71,9 @@ function Dashboard() {
               <h1 className="font-semibold lg:text-base text-sm">
                 Wallet Balance
               </h1>
-              <p className="lg:text-3xl text-xl">GHS 0.00</p>
+              <p className="lg:text-3xl text-xl">
+                GHS <span className="font-semibold">{wallet?.balance}</span>
+              </p>
             </div>
 
             <div className="border border-slate-400"></div>
@@ -63,7 +82,9 @@ function Dashboard() {
               <h1 className="font-semibold lg:text-base text-sm">
                 Wallet Number
               </h1>
-              <p className="lg:text-2xl text-base">{wallet?.id}</p>
+              <p className="lg:text-3xl text-base font-semibold">
+                {wallet?.id}
+              </p>
 
               <p className="cursor-pointer text-blue-400 lg:mt-5 mt-3 lg:text-base text-sm font-semibold">
                 View wallet history
@@ -103,7 +124,7 @@ function Dashboard() {
                       ? "bg-gray-100 cursor-pointer hover:bg-blue-100"
                       : "bg-white cursor-pointer hover:bg-blue-100"
                   }
-                  onClick={() => handleAutomationClick(automation._id)}
+                  onClick={() => handleAutomationClick(automation?.oid)}
                 >
                   <td className="border p-2">{automation.label}</td>
                   <td className="border p-2">
