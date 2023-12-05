@@ -14,7 +14,7 @@ api.interceptors.request.use(
     // Add headers to all requests
     config.headers.Authorization = `Bearer ${Cookies.get("token")}`;
     config.headers.Accept = "application/json";
-    config.headers["Content-Type"] = "application/json"
+    config.headers["Content-Type"] = "application/json";
     return config;
   },
   (error) => {
@@ -30,19 +30,18 @@ api.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       // Log out the user or perform any other action
-      console.error("auth error" + error.response)
+      console.error("auth error" + error.response);
 
       // TODO refresh the token
-      
-      Cookies.remove("token")
-      console.log('User logged out due to 401 response');
-      window.location.href = '/auth/login';
+
+      Cookies.remove("token");
+      console.log("User logged out due to 401 response");
+      window.location.href = "/auth/login";
     }
 
     return Promise.reject(error);
   }
 );
-
 
 export async function register(payload) {
   try {
@@ -92,10 +91,30 @@ export async function getAutomations() {
 export async function getAutomationById(automationId) {
   console.log(SERVER_URL);
   try {
-    const { data } = await api.get(
-      `/automations/${automationId}`,
-    );
+    const { data } = await api.get(`/automations/${automationId}`);
     console.log(data);
+
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
+export async function getCurrentUser() {
+  try {
+    const { data } = await api.get(`${SERVER_URL}/self/me`);
+
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
+export async function getWallet() {
+  try {
+    const { data } = await api.get(`${SERVER_URL}/self/wallet`);
 
     return data;
   } catch (error) {

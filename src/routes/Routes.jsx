@@ -1,7 +1,7 @@
 import {
-	RouterProvider,
-	createBrowserRouter,
-	Navigate,
+  RouterProvider,
+  createBrowserRouter,
+  Navigate,
 } from "react-router-dom";
 import { ProtectedRoute } from "./ProtectedRoute";
 import HomePage from "../pages/HomePage";
@@ -18,85 +18,85 @@ import ListAutomationsPage from "../pages/automations/ListAutomationsPage";
 import ViewAutomationPage from "../pages/automations/ViewAutomationPage";
 
 const Routes = () => {
-	const { token } = useAuth();
+  const { token } = useAuth();
 
-	// Define public routes accessible to all users
-	const routesForPublic = [
-		{
-			path: "/",
-			element: <HomePage />,
-		},
-	];
+  // Define public routes accessible to all users
+  const routesForPublic = [
+    {
+      path: "/",
+      element: <HomePage />,
+    },
+  ];
 
-	// Define routes accessible only to authenticated users
-	const routesForAuthenticatedOnly = [
-		{
-			path: "/auth/*",
-			element: <Navigate to="/dashboard" />, // Wrap the component in ProtectedRoute
-		},
-		{
-			path: "/dashboard",
-			element: <ProtectedRoute />, // Wrap the component in ProtectedRoute
-			children: [
-				{
-					path: "",
-					element: <Dashboard />,
-				},
-				{
-					path: "automations/create",
-					element: <CreateAutomationPage />
-				},
-				{
-					path: "automations",
-					element: <ListAutomationsPage />
-				},
-				{
-					path: "automations/:id",
-					element: <ViewAutomationPage />
-				}
-			],
-		},
-	];
+  // Define routes accessible only to authenticated users
+  const routesForAuthenticatedOnly = [
+    {
+      path: "/auth/*",
+      element: <Navigate to="/dashboard" />, // Wrap the component in ProtectedRoute
+    },
+    {
+      path: "/dashboard",
+      element: <ProtectedRoute />, // Wrap the component in ProtectedRoute
+      children: [
+        {
+          path: "",
+          element: <Dashboard />,
+        },
+        {
+          path: "automations/create",
+          element: <CreateAutomationPage />,
+        },
+        {
+          path: "automations",
+          element: <ListAutomationsPage />,
+        },
+        {
+          path: "automations/:id",
+          element: <ViewAutomationPage />,
+        },
+      ],
+    },
+  ];
 
-	// Define routes accessible only to non-authenticated users
-	const routesForNotAuthenticatedOnly = [
-		{
-			path: "/auth",
-			element: <AuthLayout />,
-			errorElement: <ErrorPage />,
-			children: [
-				{
-					path: "login",
-					element: <LoginPage />,
-				},
-				{
-					path: "register",
-					element: <RegisterPage />,
-				},
-				{
-					path: "passwordreset",
-					element: <PasswordReset />,
-				},
-			],
-		},
-	];
+  // Define routes accessible only to non-authenticated users
+  const routesForNotAuthenticatedOnly = [
+    {
+      path: "/auth",
+      element: <AuthLayout />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          path: "login",
+          element: <LoginPage />,
+        },
+        {
+          path: "register",
+          element: <RegisterPage />,
+        },
+        {
+          path: "passwordreset",
+          element: <PasswordReset />,
+        },
+      ],
+    },
+  ];
 
-	// Combine and conditionally include routes based on authentication status
-	const router = createBrowserRouter([
-		{
-			path: "",
-			element: <Root />,
-			children: [...routesForPublic, ...routesForAuthenticatedOnly],
-		},
-		{
-			path: "",
-			element: <AuthLayout />,
-			children: !token ? routesForNotAuthenticatedOnly : [],
-		},
-	]);
+  // Combine and conditionally include routes based on authentication status
+  const router = createBrowserRouter([
+    {
+      path: "",
+      element: <Root />,
+      children: [...routesForPublic, ...routesForAuthenticatedOnly],
+    },
+    {
+      path: "",
+      element: <AuthLayout />,
+      children: !token ? routesForNotAuthenticatedOnly : [],
+    },
+  ]);
 
-	// Provide the router configuration using RouterProvider
-	return <RouterProvider router={router} />;
+  // Provide the router configuration using RouterProvider
+  return <RouterProvider router={router} />;
 };
 
 export default Routes;
