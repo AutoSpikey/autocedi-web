@@ -3,9 +3,9 @@ import TypewriterComponent from "typewriter-effect";
 
 export default function HomePage() {
   const texts = [
-    "Pay your tithes as soon as your salary hits.",
-    "Never forget to send money to your loved ones.",
-    "Pay your rent without having to think about it.",
+    "Pay your tithes as soon as your salary hits",
+    "Never forget to send money to your loved ones",
+    "Pay your rent without having to think about it",
     "Never miss a payment on your loans"
   ];
 
@@ -27,12 +27,13 @@ export default function HomePage() {
 				<div className="flex flex-row text-xl font-light transition-opacity duration-500 ease-in-out mt-10 max-w-prose text-zinc-700 sm:text-lg">
           <TypewriterComponent
             options={{
-            strings: texts,
-            autoStart: true,
-            loop: true,
-            deleteSpeed: 5
-          }}
-/>
+              strings: texts,
+              autoStart: true,
+              loop: true,
+              deleteSpeed: 5,
+              delay:17
+            }}
+          />
 				</div>
 
 				<a
