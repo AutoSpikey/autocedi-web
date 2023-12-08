@@ -33,7 +33,7 @@ export default function Navbar() {
 						href={token ? "/dashboard" : "/auth/register"}
 						className="inline-flex btn-primary items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-black text-white hover:bg-black-900 h-11 rounded-md px-8"
 					>
-						Get started{" "}
+						{token ? "Dashboard" : "Get started"}{" "}
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="24"
