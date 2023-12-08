@@ -101,6 +101,19 @@ export async function getAutomationById(automationId) {
   }
 }
 
+export async function deleteAutomationById(automationId) {
+  console.log(SERVER_URL);
+  try {
+    const { data } = await api.delete(`/automations/${automationId}`);
+    console.log(data);
+
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
 export async function getCurrentUser() {
   try {
     const { data } = await api.get(`${SERVER_URL}/self/me`);
