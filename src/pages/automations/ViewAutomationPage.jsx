@@ -4,6 +4,7 @@ import { Table, Spinner } from "flowbite-react";
 import { deleteAutomationById, getAutomationById } from "../../lib/client";
 import { useNavigate } from "react-router-dom/dist";
 import { toast } from "react-hot-toast";
+import moment from "moment";
 
 export default function ViewAutomationPage() {
 	let { id } = useParams();
@@ -218,18 +219,17 @@ export default function ViewAutomationPage() {
 										</tr>
 									</thead>
 									<Table.Body className="divide-y">
-										{automation.history.map((history, idx) => (
+                    { automation?.history ? automation.history.map((history, idx) => (
 											<Table.Row
 												className="bg-white dark:border-gray-700 dark:bg-gray-800"
 												key={idx}
 											>
-								
-												<Table.Cell>{history.startTime}</Table.Cell>
-												<Table.Cell>{history.finishTime}</Table.Cell>
+												<Table.Cell>{moment.unix(history.startTime/1000).format("HH:mm:ss DD/MM/YYYY")}</Table.Cell>
+												<Table.Cell>{moment.unix(history.finishTime/1000).format("HH:mm:ss DD/MM/YYYY")}</Table.Cell>
 												<Table.Cell>{history.success ? "success" : "failed"}</Table.Cell>
 												<Table.Cell>{history.logs}</Table.Cell>
 											</Table.Row>
-										))}
+										)) : <span>No history</span>}
 									</Table.Body>
 								</Table>
 							</div>
