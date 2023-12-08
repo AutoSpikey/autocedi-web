@@ -47,6 +47,7 @@ function Dashboard() {
   };
 
   const getHumanDateFromUnix = (arg) => {
+    if(!arg) return "never";
     const argDate = moment.unix(arg/1000);
     const now = moment();
     const text = moment.duration(argDate.diff(now)).humanize(true);
