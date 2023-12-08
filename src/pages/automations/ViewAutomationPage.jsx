@@ -15,6 +15,7 @@ export default function ViewAutomationPage() {
 		setIsLoading(true);
 		getAutomationById(id).then((data) => {
 			setAutomation(data);
+      console.log(automation.history)
 			setIsLoading(false);
 		});
 	}, [id]);
@@ -216,14 +217,20 @@ export default function ViewAutomationPage() {
 											</th>
 										</tr>
 									</thead>
-									{/* <Table.Body className="divide-y">
-                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                      <Table.Cell>{'Apple MacBook Pro 17"'}</Table.Cell>
-                      <Table.Cell>Sliver</Table.Cell>
-                      <Table.Cell>Laptop</Table.Cell>
-                      <Table.Cell>$2999</Table.Cell>
-                    </Table.Row>
-                  </Table.Body> */}
+									<Table.Body className="divide-y">
+										{automation.history.map((history, idx) => (
+											<Table.Row
+												className="bg-white dark:border-gray-700 dark:bg-gray-800"
+												key={idx}
+											>
+								
+												<Table.Cell>{history.startTime}</Table.Cell>
+												<Table.Cell>{history.finishTime}</Table.Cell>
+												<Table.Cell>{history.success ? "success" : "failed"}</Table.Cell>
+												<Table.Cell>{history.logs}</Table.Cell>
+											</Table.Row>
+										))}
+									</Table.Body>
 								</Table>
 							</div>
 						</div>
