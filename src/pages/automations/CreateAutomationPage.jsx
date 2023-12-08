@@ -45,7 +45,7 @@ export default function CreateAutomationPage() {
 		});
 
 		automationPromise
-			.then(() => navigate("/dashboard/automations"))
+			.then(() => navigate("/dashboard"))
 			.catch(() => {})
 	};
 

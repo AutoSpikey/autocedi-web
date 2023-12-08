@@ -77,6 +77,17 @@ export default function ViewAutomationPage() {
 											Trigger
 										</dt>
 										<dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+											<div className="flex flex-row">
+												<h1 className="font-semibold pr-2">Type:</h1>
+												<p>
+													{automation &&
+													automation.trigger &&
+													automation.trigger.type
+														? automation.trigger.type
+														: "N/A"}
+												</p>
+											</div>
+
 											<div className="flex flex-col gap-y-2">
 												<div className="flex flex-row">
 													<h1 className="font-semibold pr-2">Field:</h1>
@@ -85,17 +96,6 @@ export default function ViewAutomationPage() {
 														automation.trigger &&
 														automation.trigger.field
 															? automation.trigger.field
-															: "N/A"}
-													</p>
-												</div>
-
-												<div className="flex flex-row">
-													<h1 className="font-semibold pr-2">Type:</h1>
-													<p>
-														{automation &&
-														automation.trigger &&
-														automation.trigger.type
-															? automation.trigger.type
 															: "N/A"}
 													</p>
 												</div>
@@ -113,7 +113,7 @@ export default function ViewAutomationPage() {
 											</div>
 										</dd>
 									</div>
-									<div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+									{/* <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
 										<dt className="text-sm font-medium leading-6 text-gray-900">
 											Conditions
 										</dt>
@@ -149,10 +149,10 @@ export default function ViewAutomationPage() {
 												  ))
 												: "N/A"}
 										</dd>
-									</div>
+									</div> */}
 									<div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
 										<dt className="text-sm font-medium leading-6 text-gray-900">
-											Actions
+											Action
 										</dt>
 										<dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
 											{automation &&
@@ -160,15 +160,15 @@ export default function ViewAutomationPage() {
 											automation.actions.length > 0
 												? automation.actions.map((action, index) => (
 														<div className="flex flex-col gap-y-2" key={index}>
-															<div>
+															{/* <div>
 																<h1 className="font-bold italic">
 																	Action {index + 1}
 																</h1>
-															</div>
+															</div> */}
 
 															<div className="flex flex-col gap-y-2">
 																<div className="flex flex-row">
-																	<h1 className="font-semibold pr-2">Field:</h1>
+																	<h1 className="font-semibold pr-2">Pay:</h1>
 																	<p>{action.field}</p>
 																</div>
 
