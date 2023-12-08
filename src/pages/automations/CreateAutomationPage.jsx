@@ -109,7 +109,7 @@ export default function CreateAutomationPage() {
 								onChange={(e) => setTriggerField(e.target.value)}
 							>
 								<option value="amount">Of Amount</option>
-								<option value="sender">From Sender</option>
+								<option value="sender">From Sender Wallet Id</option>
 							</select>
 							<input
 								placeholder={"leave empty for any " + triggerField}
