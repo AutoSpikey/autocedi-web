@@ -46,6 +46,13 @@ function Dashboard() {
     return text;
   };
 
+  const getHumanDateFromUnix = (arg) => {
+    const argDate = moment.unix(arg/1000);
+    const now = moment();
+    const text = moment.duration(argDate.diff(now)).humanize(true);
+    return text
+  }
+
   const handleCreateAutomationClick = () => {
     navigate("/dashboard/automations/create");
   };
@@ -131,10 +138,7 @@ function Dashboard() {
                     {getHumanDateFromNow(automation.createdAt)}
                   </td>
                   <td className="border p-2">
-                    {" "}
-                    {automation.lastRan
-                      ? getHumanDateFromNow(automation.createdAt)
-                      : "never"}
+                    {getHumanDateFromUnix(automation.lastRan) ?? "never"}
                   </td>
                 </tr>
               ))}
