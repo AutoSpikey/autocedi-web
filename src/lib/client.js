@@ -135,3 +135,14 @@ export async function getWallet() {
     throw error;
   }
 }
+
+export async function getWallets() {
+  try {
+    const { data } = await api.get(`${SERVER_URL}/userwallets`);
+
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
